@@ -1,0 +1,153 @@
+﻿@model MVCYorbit.Models.Search
+
+@{
+    ViewBag.Title = "SearchApplication";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<h2>User Search</h2>
+
+<p>Please input any of the fields to search through all the customers</p>
+
+<link rel="stylesheet" href="~/Scripts/bootstrap.min.css">
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Scripts/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApplicationID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ApplicationID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ApplicationID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Application Status", (IEnumerable<SelectListItem>)ViewBag.Status, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+    <table id="SearchData" class="table table-bordered" cellspacing="0" style="width:100%;">
+        <thead>
+            <tr style="background-color:#7386D5">
+                <th style="color:#000000">Suffix</th>
+                <th style="color:#000000">First Name</th>
+                <th style="color:#000000">Last Name</th>
+                <th style="color:#000000">Date Of Birth</th>
+                <th style="color:#000000">Gender</th>
+                <th style="color:#000000">Application ID</th>
+                <th style="color:#000000">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Search != null)
+            {
+                foreach (var row in ViewBag.Search)
+                {
+            <tr>
+
+                <td id="Suffix">@row.Suffix</td>
+                <td id="Fname">@row.FirstName</td>
+                <td id="Lname">@row.LastName</td>
+                <td id="DOB">@row.DateOfBirth.ToShortDateString()</td>
+                <td id="Gender">@row.Gender</td>
+                <td id="AppID">@row.ApplicationID</td>
+                <td style="white-space:nowrap;">
+                    <input type="button" class="btnEdit btn btn-success" id="@row.ID" value="View & Edit" />
+                </td>
+            </tr>
+                }
+            }
+           
+        </tbody>
+    </table>
+
+}
+
+<div>
+    @Html.ActionLink("Back to HomePage", "HomePage")
+</div>
+<script type="text/javascript">
+    function MembersTable() {
+        $('#SearchData').DataTable();
+    }
+      function Edit(member) {
+         $.ajax({
+                        type: "POST",
+                        url: "../Home/ViewAndEdit",
+                        contentType: "application/json; charset=utf-8",
+                       data: '{member: ' + JSON.stringify(member) + '}',
+                        dataType: "json",
+                        success: function (response) {
+
+                            if (response != false) {
+                                alert("Navigating to the Household Info Page");
+                                window.location.href = "../Home/AddMember";
+                            }
+                            else {
+                                alert("Error occurred : Please try Again !!");
+                            }
+
+                        },
+                        error: function () { alert('A error'); }
+                    });
+    }
+    $(document).ready(function () {
+        $.noConflict();
+        MembersTable();
+        $("#SearchData").on("click", ".btnEdit", function () {
+                  var memberData = {};
+            memberData.FirstName = $(this).closest("tr").find("#Fname").text();
+            memberData.LastName = $(this).closest("tr").find("#Lname").text();
+            memberData.Suffix = $(this).closest("tr").find("#Suffix").text();
+            memberData.Gender = $(this).closest("tr").find("#Gender").text();
+            memberData.DateOfBirth = $(this).closest("tr").find("#DOB").text();
+            memberData.ApplicationID = $(this).closest("tr").find("#AppID").text();
+            memberData.ID = this.id;
+        
+              Edit(memberData);
+        });
+    });
+    </script>

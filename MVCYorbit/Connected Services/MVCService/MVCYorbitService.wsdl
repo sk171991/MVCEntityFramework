@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MVCYorbitService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://localhost:44395/MVCYorbitService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://localhost:44395/MVCYorbitService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://localhost:44395/MVCYorbitService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MVCYorbitService" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMVCYorbitService_GetUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUser" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_Validate_InputMessage">
+    <wsdl:part name="parameters" element="tns:Validate" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_Validate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_Register_InputMessage">
+    <wsdl:part name="parameters" element="tns:Register" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_Register_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_ValidateRegistration_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateRegistration" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_ValidateRegistration_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateRegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_AddMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMember" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_AddMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMemberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetMemberDataCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMemberDataCount" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetMemberDataCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMemberDataCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetFirstMemberData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFirstMemberData" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetFirstMemberData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFirstMemberDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetMembers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMembers" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetMembers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMembersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_MemberDel_InputMessage">
+    <wsdl:part name="parameters" element="tns:MemberDel" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_MemberDel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MemberDelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_EditMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditMember" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_EditMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditMemberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SaveAppId_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveAppId" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SaveAppId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveAppIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SubmitRelationShip_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitRelationShip" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SubmitRelationShip_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitRelationShipResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SubmitApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitApplication" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SubmitApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitApplicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_AppIDinAddMembers_InputMessage">
+    <wsdl:part name="parameters" element="tns:AppIDinAddMembers" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_AppIDinAddMembers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AppIDinAddMembersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetRelationAppID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRelationAppID" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetRelationAppID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRelationAppIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SearchApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchApplication" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SearchApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchApplicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SearchMember_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchMember" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_SearchMember_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchMemberResponse" />
+  </wsdl:message>
+  <wsdl:message name="FamilyRequest">
+    <wsdl:part name="parameters" element="tns:FamilyRequest" />
+  </wsdl:message>
+  <wsdl:message name="FamilyRequest_Headers">
+    <wsdl:part name="AccountId" element="tns:AccountId" />
+  </wsdl:message>
+  <wsdl:message name="FamilyResponse">
+    <wsdl:part name="parameters" element="tns:FamilyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMVCYorbitService_GetInfo_ListOf_FamilyResponseFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/MVCYorbitService" name="detail" element="q1:ArrayOfMessageContract.FamilyResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMVCYorbitService">
+    <wsdl:operation name="GetUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/GetUser" message="tns:IMVCYorbitService_GetUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/GetUserResponse" message="tns:IMVCYorbitService_GetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Validate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/Validate" message="tns:IMVCYorbitService_Validate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/ValidateResponse" message="tns:IMVCYorbitService_Validate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/Register" message="tns:IMVCYorbitService_Register_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/RegisterResponse" message="tns:IMVCYorbitService_Register_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateRegistration">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/ValidateRegistration" message="tns:IMVCYorbitService_ValidateRegistration_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/ValidateRegistrationResponse" message="tns:IMVCYorbitService_ValidateRegistration_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/AddMember" message="tns:IMVCYorbitService_AddMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/AddMemberResponse" message="tns:IMVCYorbitService_AddMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMemberDataCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/GetMemberDataCount" message="tns:IMVCYorbitService_GetMemberDataCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/GetMemberDataCountResponse" message="tns:IMVCYorbitService_GetMemberDataCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFirstMemberData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/GetFirstMemberData" message="tns:IMVCYorbitService_GetFirstMemberData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/GetFirstMemberDataResponse" message="tns:IMVCYorbitService_GetFirstMemberData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMembers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/GetMembers" message="tns:IMVCYorbitService_GetMembers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/GetMembersResponse" message="tns:IMVCYorbitService_GetMembers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MemberDel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/MemberDel" message="tns:IMVCYorbitService_MemberDel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/MemberDelResponse" message="tns:IMVCYorbitService_MemberDel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/EditMember" message="tns:IMVCYorbitService_EditMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/EditMemberResponse" message="tns:IMVCYorbitService_EditMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveAppId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/SaveAppId" message="tns:IMVCYorbitService_SaveAppId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/SaveAppIdResponse" message="tns:IMVCYorbitService_SaveAppId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitRelationShip">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/SubmitRelationShip" message="tns:IMVCYorbitService_SubmitRelationShip_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/SubmitRelationShipResponse" message="tns:IMVCYorbitService_SubmitRelationShip_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/SubmitApplication" message="tns:IMVCYorbitService_SubmitApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/SubmitApplicationResponse" message="tns:IMVCYorbitService_SubmitApplication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AppIDinAddMembers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/AppIDinAddMembers" message="tns:IMVCYorbitService_AppIDinAddMembers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/AppIDinAddMembersResponse" message="tns:IMVCYorbitService_AppIDinAddMembers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationAppID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/GetRelationAppID" message="tns:IMVCYorbitService_GetRelationAppID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/GetRelationAppIDResponse" message="tns:IMVCYorbitService_GetRelationAppID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/SearchApplication" message="tns:IMVCYorbitService_SearchApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/SearchApplicationResponse" message="tns:IMVCYorbitService_SearchApplication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchMember">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/SearchMember" message="tns:IMVCYorbitService_SearchMember_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/SearchMemberResponse" message="tns:IMVCYorbitService_SearchMember_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMVCYorbitService/GetInfo" name="FamilyRequest" message="tns:FamilyRequest" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMVCYorbitService/GetInfoResponse" name="FamilyResponse" message="tns:FamilyResponse" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IMVCYorbitService/GetInfoListOf_FamilyResponseFault" name="ListOf_FamilyResponseFault" message="tns:IMVCYorbitService_GetInfo_ListOf_FamilyResponseFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMVCYorbitService" type="tns:IMVCYorbitService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUser">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/GetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Validate">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/Validate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/Register" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateRegistration">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/ValidateRegistration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddMember">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/AddMember" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMemberDataCount">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/GetMemberDataCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFirstMemberData">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/GetFirstMemberData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMembers">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/GetMembers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MemberDel">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/MemberDel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMember">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/EditMember" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveAppId">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/SaveAppId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitRelationShip">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/SubmitRelationShip" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitApplication">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/SubmitApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AppIDinAddMembers">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/AppIDinAddMembers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationAppID">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/GetRelationAppID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchApplication">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/SearchApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchMember">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/SearchMember" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfo">
+      <soap:operation soapAction="http://tempuri.org/IMVCYorbitService/GetInfo" style="document" />
+      <wsdl:input name="FamilyRequest">
+        <soap:header message="tns:FamilyRequest_Headers" part="AccountId" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="FamilyResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ListOf_FamilyResponseFault">
+        <soap:fault use="literal" name="ListOf_FamilyResponseFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MVCYorbitService">
+    <wsdl:port name="BasicHttpBinding_IMVCYorbitService" binding="tns:BasicHttpBinding_IMVCYorbitService">
+      <soap:address location="http://localhost:59737/MVCYorbitService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

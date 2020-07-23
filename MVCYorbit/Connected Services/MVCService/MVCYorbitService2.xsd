@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MVCYorbitService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MVCYorbitService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Account">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedTimeStamp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModifiedTimeStamp" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MetaActive" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RelationShips" nillable="true" type="tns:ArrayOfRelationShip" />
+      <xs:element minOccurs="0" name="Role" nillable="true" type="tns:Role" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserType" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Account" nillable="true" type="tns:Account" />
+  <xs:complexType name="ArrayOfRelationShip">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RelationShip" nillable="true" type="tns:RelationShip" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRelationShip" nillable="true" type="tns:ArrayOfRelationShip" />
+  <xs:complexType name="RelationShip">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Account" nillable="true" type="tns:Account" />
+      <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="AddMember" nillable="true" type="tns:AddMember" />
+      <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedTimeStamp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModifiedTimeStamp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MemberId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MetaActive" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RelatedMemberId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RelationType" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RelationShip" nillable="true" type="tns:RelationShip" />
+  <xs:complexType name="AddMember">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApplicationID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedTimeStamp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateOfBirth" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModifiedTimeStamp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MetaActive" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MiddleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RelationShips" nillable="true" type="tns:ArrayOfRelationShip" />
+      <xs:element minOccurs="0" name="Suffix" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserAccountID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AddMember" nillable="true" type="tns:AddMember" />
+  <xs:complexType name="Role">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Accounts" nillable="true" type="tns:ArrayOfAccount" />
+      <xs:element minOccurs="0" name="CreatedTimeStamp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModifiedTimeStamp" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MetaActive" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UserRole" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role" nillable="true" type="tns:Role" />
+  <xs:complexType name="ArrayOfAccount">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Account" nillable="true" type="tns:Account" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccount" nillable="true" type="tns:ArrayOfAccount" />
+  <xs:complexType name="ArrayOfAddMember">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AddMember" nillable="true" type="tns:AddMember" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAddMember" nillable="true" type="tns:ArrayOfAddMember" />
+  <xs:complexType name="ArrayOfMessageContract.FamilyDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MessageContract.FamilyDetails" nillable="true" type="tns:MessageContract.FamilyDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMessageContract.FamilyDetails" nillable="true" type="tns:ArrayOfMessageContract.FamilyDetails" />
+  <xs:complexType name="MessageContract.FamilyDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateOfBirth" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Relation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Suffix" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MessageContract.FamilyDetails" nillable="true" type="tns:MessageContract.FamilyDetails" />
+  <xs:complexType name="ArrayOfMessageContract.FamilyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MessageContract.FamilyResponse" nillable="true" type="tns:MessageContract.FamilyResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMessageContract.FamilyResponse" nillable="true" type="tns:ArrayOfMessageContract.FamilyResponse" />
+  <xs:complexType name="MessageContract.FamilyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Obj" nillable="true" type="tns:ArrayOfMessageContract.FamilyDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MessageContract.FamilyResponse" nillable="true" type="tns:MessageContract.FamilyResponse" />
+</xs:schema>

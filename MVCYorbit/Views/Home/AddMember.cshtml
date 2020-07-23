@@ -1,0 +1,402 @@
+﻿@using MVCYorbit.Models
+@model AddMember
+@{
+    ViewBag.Title = "AddMember";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+<style>
+    .required:after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+<link rel="stylesheet" href="~/Scripts/bootstrap.min.css">
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Scripts/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>House Hold Info</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="Addmember">
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, "First Name :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+
+
+        @Html.LabelFor(model => model.MiddleName, "Middle Name :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+        </div>
+
+
+
+        @Html.LabelFor(model => model.LastName, "Last Name :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Suffix, "Suffix :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+        <div class="col-md-2">
+            @Html.DropDownList("Suffix", new SelectList(Enum.GetValues(typeof(Suffix))), "---Select---", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Suffix, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.DateOfBirth, "Date of Birth :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.Gender, "Gender :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+        <div class="col-md-2 controls">
+            @Html.RadioButton("Gender", "Male") Male
+
+            @Html.RadioButton("Gender", "Female") Female
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add Member" class="btn btn-success" id="Add" style="float:right" />
+        </div>
+    </div>
+
+</div>
+
+    <table id="MemberData" class="table table-bordered" cellspacing="0" style="width:100%;">
+        <thead>
+            <tr style="background-color:#7386D5">
+                <th style="color:#000000">First Name</th>
+                <th style="color:#000000">Middle Name</th>
+                <th style="color:#000000">Last Name</th>
+                <th style="color:#000000">Suffix</th>
+                <th style="color:#000000">Date Of Birth</th>
+                <th style="color:#000000">Gender</th>
+                <th style="color:#000000">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewData.ContainsKey("MemberData"))
+            {
+                foreach (var row in ViewBag.MemberData)
+                {
+                    <tr>
+                        <td id="Fname">@row.FirstName</td>
+                        <td id="Mname">@row.MiddleName</td>
+                        <td id="Lname">@row.LastName</td>
+                        <td id="Suffix">@row.Suffix</td>
+                        <td id="DOB">@row.DateOfBirth.ToShortDateString()</td>
+                        <td id="Gender">@row.Gender</td>
+                        <td style="white-space:nowrap;">
+                            <input type="button" class="btnEdit btn btn-success" id="@row.ID" value="Edit" />
+                            <input type="button" class="btnDel btn btn-danger" id="@row.ID" value="Delete" />
+                        </td>
+                    </tr>
+                }
+            }
+            
+        </tbody>
+    </table>
+
+    <!-- MemberEditModal -->
+    <div class="modal fade" id="MemberEdit" role="dialog">
+        <div class="modal-dialog" style="width:1200px">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Details for :  <label class="MemberName"></label>
+                        <input type="hidden" id="memberId" />
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-horizontal">
+                            <h4>House Hold Info</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName, "First Name :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+
+
+                                @Html.LabelFor(model => model.MiddleName, "Middle Name :", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                                </div>
+
+
+
+                                @Html.LabelFor(model => model.LastName, "Last Name :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Suffix, "Suffix :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Suffix", new SelectList(Enum.GetValues(typeof(Suffix))), "---Select---", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Suffix, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(model => model.DateOfBirth, "Date of Birth :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(model => model.Gender, "Gender :", htmlAttributes: new { @class = "control-label col-md-2 required" })
+                                <div class="col-md-2">
+                                    @Html.RadioButton("Gender", "Male") Male
+                                    @Html.RadioButton("Gender", "Female") Female
+                                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="btnSave">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" style="padding-top:5em;">
+        <input type="button" value="Save & Exit" class="btn btn-success" id="Save" style="float:left" />
+
+        <input type="button" value="Next" class="btn btn-success" id="Next" style="float:right" />
+        &nbsp;
+        <input type="button" value="Back" class="btn btn-success" id="Back" style="float:right" onclick="window.location.href='../Home/HomePage'" />
+
+    </div>
+    <div class="row">
+        <div>
+            Note:
+            <span style="color:red">*</span>  indicates mandatory field
+        </div>
+    </div>
+
+
+</div>
+}
+<script type="text/javascript">
+     function MembersTable() {
+        $('#MemberData').DataTable();
+    }
+
+    function Delete(memberID) {
+         $.ajax({
+                        type: "POST",
+                        url: "../Home/MemberDelete",
+                        contentType: "application/json; charset=utf-8",
+                        data:  "{'memberID': '" + memberID + "'}",
+                        dataType: "json",
+                        success: function (response) {
+
+                            if (response != false) {
+
+                                alert("Member data successfully deleted from the records");
+                                window.location.href = "../Home/AddMember";
+                            }
+                            else {
+                                alert("Error occurred : Please try Again !!");
+                            }
+
+                        },
+                        error: function () { alert('A error'); }
+                    });
+    }
+
+    function Edit(memberData) {
+         $.ajax({
+                        type: "POST",
+                        url: "../Home/Edit",
+                        contentType: "application/json; charset=utf-8",
+                       data: '{memberData: ' + JSON.stringify(memberData) + '}',
+                        dataType: "json",
+                        success: function (response) {
+
+                            if (response != false) {
+
+                                alert("Member data has been edited successfully");
+                                window.location.href = "../Home/AddMember";
+                            }
+                            else {
+                                alert("Error occurred : Please try Again !!");
+                            }
+
+                        },
+                        error: function () { alert('A error'); }
+                    });
+    }
+
+     function Save(memberData) {
+         $.ajax({
+                        type: "POST",
+                        url: "../Home/Save",
+                        contentType: "application/json; charset=utf-8",
+                       data: '{memberData: ' + JSON.stringify(memberData) + '}',
+                        dataType: "json",
+                        success: function (response) {
+
+                            if (response == true) {
+
+                                alert("Member data has been saved successfully");
+                                window.location.href = "../Home/HomePage";
+                            }
+                            else if (response == false) {
+                                alert("Please fill the Mandatory fields before saving the Data !!");
+                            }
+                            else {
+                                alert("Data cannot be saved due to some issue");
+                            }
+
+                        },
+                        error: function () { alert('A error'); }
+                    });
+    }
+
+    function Relationship() {
+       
+         $.ajax({
+                        type: "POST",
+                        url: "../Home/Next",
+                        contentType: "application/json; charset=utf-8",
+                      
+                        dataType: "json",
+                        success: function (response) {
+
+                            if (response != false) {
+
+                                alert("Member data has been saved successfully !! Navigating to the Relationship Page");
+                                window.location.href = "../Home/Relationship";
+                            }
+                            else {
+                                alert("Please add atleast 2 Family Members.\n\nNote: It should not extend more than 5");
+                            }
+
+                        },
+                        error: function () { alert('A error'); }
+                    });
+    }
+     function convertToJavaScriptDate(value) {
+       
+        var dt = new Date(value);
+        var day = ("0" + dt.getDate()).slice(-2);
+        var month = ("0" + (dt.getMonth() + 1)).slice(-2);
+
+        var dateVal = dt.getFullYear() + "-" + (month) + "-" + (day);
+        return dateVal;
+    }
+
+     $(document).ready(function () {
+         $.noConflict();
+         MembersTable();
+         if('@ViewBag.Error' != '')
+         {
+             alert('@ViewBag.Error');
+         }
+          if('@ViewBag.Message' != '')
+         {
+             alert('@ViewBag.Message');
+         }
+         $("#MemberData").on("click", ".btnEdit", function () {
+             var Fname = $(this).closest("tr").find("#Fname").text();
+             var Lname = $(this).closest("tr").find("#Lname").text();
+             var Mname = $(this).closest("tr").find("#Mname").text();
+             var Suffix = $(this).closest("tr").find("#Suffix").text();
+             var Gender = $(this).closest("tr").find("#Gender").text();
+             var DOB = $(this).closest("tr").find("#DOB").text();
+             var ID = this.id;
+             $("#memberId").val(ID);
+             $(".MemberName").html(Fname +' '+ Mname +' '+ Lname);
+             $(".modal-body #FirstName").val(Fname);
+             $(".modal-body #MiddleName").val(Mname);
+             $(".modal-body #LastName").val(Lname);
+             $(".modal-body #DateOfBirth").val(convertToJavaScriptDate(DOB));
+             $(".modal-body #Suffix").val(Suffix);
+             $(".modal-body input[name=Gender][value='" + Gender + "']").attr("checked", true);
+             $("#MemberEdit").modal("show");
+         });
+          $("#MemberData").on("click", ".btnDel", function () {
+              var memberID = this.id;
+              
+              Delete(memberID);
+          });
+         $("#MemberEdit").on("click", "#btnSave", function () {
+               var memberData = {};
+             memberData.FirstName = $(".modal-body #FirstName").val();
+             memberData.MiddleName = $(".modal-body #MiddleName").val();
+             memberData.LastName = $(".modal-body #LastName").val();
+             memberData.DateOfBirth = $(".modal-body #DateOfBirth").val();
+             memberData.Suffix = $(".modal-body #Suffix").val();
+             memberData.Gender = $(".modal-body #Gender").val();
+            
+              memberData.ID = $("#memberId").val();
+              Edit(memberData);
+              
+          });
+         $("#Save").on("click", function () {
+               var memberData = {};
+             memberData.FirstName = $("#FirstName").val();
+             memberData.MiddleName = $("#MiddleName").val();
+             memberData.LastName = $("#LastName").val();
+             memberData.DateOfBirth = $("#DateOfBirth").val();
+             memberData.Suffix = $("#Suffix").val();
+             memberData.Gender = $("input[name='Gender']:checked"). val();
+            
+              Save(memberData);
+              
+         });
+         $("#Next").on("click", function () {
+            
+             Relationship();
+              
+         });
+         if('@ViewBag.Date' != '')
+         {
+             $("#DateOfBirth").val('@ViewBag.Date');
+         }
+         if('@ViewBag.Gender' != '')
+         {
+           
+             //$(".Addmember input[name=Gender][value='" + selectdGender + "']").attr("checked", true);
+             
+            
+         }
+         var gender = "";
+         $(".Addmember input[name='Gender'][value='@ViewBag.Gender']").attr("checked", true);
+         var check = $("input[type=radio][name='Gender']:checked").val();
+         alert(check);
+});
+</script>
+

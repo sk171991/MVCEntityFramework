@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "Relationship";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<h4>Relationship</h4> <span style="color:red">*</span>  indicates mandatory field
+<style>
+    .required:after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@using (Html.BeginForm())
+{
+    <div id="MemberTab">
+
+        <ul>
+            @foreach (var items in ViewBag.Names)
+            {
+                <li><a href=#@items.ID>@items.FirstName@items.MiddleName@items.LastName</a></li>
+            }
+        </ul>
+        @foreach (var member in ViewBag.Names)
+        {
+            <div id="@member.ID">
+                @foreach (var nextMember in ViewBag.Names)
+                {
+                    if (member.ID != nextMember.ID)
+                    {
+                        <div class="row">
+                            <div class="col-md-4 required">Relationship to @nextMember.FirstName @nextMember.LastName</div>
+                            <div class="col-md-4" memberid="@nextMember.ID">
+                                @Html.DropDownList("RelationShip", (IEnumerable<SelectListItem>)ViewBag.Relations, "--Select--", new { @class = "form-control" , @member = @nextMember.ID })
+                            </div>
+                        </div>
+                    }
+
+                }
+                <div class="row">
+                    <div class="col-md-offset-4">
+                        <input type="button" value="Submit" class="btn btn-success Submit" id="@member.ID" style="float:right" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <input type="button" value="Back" class="btn btn-success" id="Back" style="float:left" onclick="window.location.href='../Home/AddMember'" />
+
+}
+
+<script type="text/javascript">
+
+    function Submit(memberId, relatedmemberId, relation) {
+        $.ajax({
+            type: "POST",
+            url: "../Home/RelationShipSubmit",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ memberId: memberId, relatedmemberId: relatedmemberId, relation: relation }),
+            dataType: "json",
+            success: function (response) {
+
+                if (response != false) {
+
+                    alert("Data submitted successfully . Please submit other relation data to submit the application");
+                    $("input[id='" + memberId + "']").prop("disabled",true);
+
+                     $("#" + memberId).find('select[name="RelationShip"]').prop("disabled", true);
+                }
+                else {
+                    alert("Error occurred : Please try Again !!");
+                }
+
+            },
+            error: function () { alert('A error'); }
+        });
+    }
+    $(document).ready(function () {
+        $.noConflict();
+        $("#MemberTab").tabs();
+        var count = $('#MemberTab .Submit').length;
+
+       
+                 $(".Submit").on('click', function () {
+                     var ID = this.id;
+                     if (ID == count) {
+                         var relatedmemberId = [];
+                         var relation = [];
+                         var selected = $("#" + ID).find('option:selected').length;
+
+                         $("#" + ID).find('option:selected').each(function () {
+                             if ($(this).val() != "") {
+                                 relation.push($(this).val());
+                             }
+                         });
+
+                         $("#" + ID).find('select[name="RelationShip"]').each(function () {
+                             relatedmemberId.push($(this).attr("member"));
+                             
+                         });
+
+                         if (selected == relation.length) {
+                             if (confirm("You have selected the relation - " + relation.join(", ") + "\nDo you wish to submit ?")) {
+                                 Submit(ID, relatedmemberId, relation);
+                                 window.location.href = "../Home/ApplicationSubmit";
+                             }
+                         }
+
+                         else {
+                             alert("Please select the Mandatory relation values from dropdown list");
+                         }
+                     }
+                     else {
+                         var relatedmemberId = [];
+                         var relation = [];
+                         var selected = $("#" + ID).find('option:selected').length;
+
+                         $("#" + ID).find('option:selected').each(function () {
+                             if ($(this).val() != "") {
+                                 relation.push($(this).val());
+                             }
+                         });
+
+                         $("#" + ID).find('select[name="RelationShip"]').each(function () {
+                             relatedmemberId.push($(this).attr("member"));
+                            
+                         });
+
+                         if (selected == relation.length) {
+                             alert("You have selected the relation - " + relation.join(", "))
+                             Submit(ID, relatedmemberId, relation);
+                         }
+
+                         else {
+                             alert("Please select the Mandatory relation values from dropdown list");
+                         }
+                     }
+                 });
+            
+        $(".ui-tabs-anchor").on('click', function () {
+            var relation = [];
+            //var ID = $('div[id="MemberTab"] ul .ui-tabs-anchor').attr("href");
+            var selectedTabID = $("#MemberTab .ui-tabs-panel:visible").attr("id");
+            var ID = "#" + selectedTabID;
+            
+            var selected = $(ID).find('option:selected').length;
+
+            $(ID).find('option:selected').each(function () {
+                if ($(this).val() != "") {
+                    relation.push($(this).val());
+                }
+            });
+            var index = $(ID).index() - 2;
+            var activeTab = selectedTabID - 1;
+            //if (selected != relation.length) {
+
+            //    alert("Cannot switch tabs as the Mandatory relation values are not submitted");
+            //    $("#MemberTab").tabs("option", "active", index);
+            //    return false;
+
+            //}
+            if ($('div[id="' + activeTab + '"]').find(".Submit").is(":enabled")) {
+                 alert("You need to submit the data before going to another tab !!");
+                 $("#MemberTab").tabs("option", "active", index);
+                return false;
+            }
+
+        });
+    });
+</script>

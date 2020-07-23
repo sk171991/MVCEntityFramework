@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "ApplicationSubmit";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<h4>ApplicationSubmit</h4>
+
+
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<label id="status" class="form-control">
+
+</label>
+@Html.ActionLink("Download Pdf", "CreatePDF", "Home")
+<script type="text/javascript">
+     $(document).ready(function () {
+            $.noConflict();
+         if('@ViewBag.Status' != '')
+         {
+             $("#status").text('@ViewBag.Status' + '' );
+         }
+
+});
+</script>
+

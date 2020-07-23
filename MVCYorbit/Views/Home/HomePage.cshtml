@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "HomePage";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="text-align:center">
+        <h4 style="text-align:right">Welcome @ViewBag.Role</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <input type="button" value="Create Application" class="btn btn-success" id="Create"/>
+        </div>
+
+        <div class="form-group">
+            <input type="button" value="Search Application" class="btn btn-success" id="Search"/>
+        </div>
+    </div>
+}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.noConflict();
+            var role = '@ViewBag.Role';
+            if (role != "Admin") {
+                $("#Search").hide();
+            }
+            $("#Create").on("click", function () {
+                window.location.href = "../Home/AddMember";
+            });
+             $("#Search").on("click", function () {
+                window.location.href = "../Home/SearchApplication";
+            });
+        });
+    </script>
+
+
